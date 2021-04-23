@@ -1,5 +1,6 @@
-package com.aa.harcamalarabt
+package com.aa.harcamalarabt.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.aa.harcamalarabt.R
 import com.aa.harcamalarabt.databinding.FragmentSplashBinding
 
 class SplashFragment : Fragment() {
@@ -24,8 +26,13 @@ class SplashFragment : Fragment() {
         val view = binding.root
 
         Handler(Looper.getMainLooper()).postDelayed({
-            findNavController().navigate(R.id.action_splashFragment_to_viewPagerFragment)
-        },1800)
+
+            if(onBoardingFinished()){
+                findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
+            } else {
+                findNavController().navigate(R.id.action_splashFragment_to_viewPagerFragment)
+            }
+        },1900)
 
         return view
     }
@@ -35,6 +42,11 @@ class SplashFragment : Fragment() {
 
         binding.lottie.setAnimation("animation.json")
         binding.lottie.playAnimation()
+    }
+
+    private fun onBoardingFinished(): Boolean{
+        val sharedPreferences = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
+        return sharedPreferences.getBoolean("Finished",false)
     }
 
     override fun onDestroyView() {

@@ -1,4 +1,4 @@
-package com.aa.harcamalarabt.onboarding
+package com.aa.harcamalarabt.ui.onboarding
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

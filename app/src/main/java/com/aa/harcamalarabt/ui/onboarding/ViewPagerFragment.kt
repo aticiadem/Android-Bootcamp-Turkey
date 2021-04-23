@@ -1,15 +1,14 @@
-package com.aa.harcamalarabt.onboarding
+package com.aa.harcamalarabt.ui.onboarding
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.aa.harcamalarabt.R
 import com.aa.harcamalarabt.databinding.FragmentViewPagerBinding
-import com.aa.harcamalarabt.onboarding.screens.FirstScreen
-import com.aa.harcamalarabt.onboarding.screens.SecondScreen
-import com.aa.harcamalarabt.onboarding.screens.ThirdScreen
+import com.aa.harcamalarabt.ui.onboarding.screens.FirstScreen
+import com.aa.harcamalarabt.ui.onboarding.screens.SecondScreen
+import com.aa.harcamalarabt.ui.onboarding.screens.ThirdScreen
 
 class ViewPagerFragment : Fragment() {
 
