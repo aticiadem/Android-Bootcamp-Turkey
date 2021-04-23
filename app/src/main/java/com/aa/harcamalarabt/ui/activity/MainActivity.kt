@@ -1,7 +1,8 @@
-package com.aa.harcamalarabt
+package com.aa.harcamalarabt.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.aa.harcamalarabt.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,4 +12,5 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
     }
+
 }

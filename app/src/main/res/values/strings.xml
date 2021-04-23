@@ -5,9 +5,9 @@
     <string name="karsinizda_harcama_takip_uygulamasi">Karşınızda Harcama Takip Uygulaması</string>
     <string name="karisikliga_son">Artık Karışıklığa Son!</string>
     <string name="kolayca_kategorilendir">Kolayca Kategorilendir</string>
-    <string name="second_screen_second_text">Harcamalarınız kategorileyerek daha kolay takip edin!</string>
+    <string name="second_screen_second_text">Harcamalarınızı kategorileyerek daha kolay takip edin!</string>
     <string name="farkli_para_birimleri">Farklı Para Birimleriyle Takip Et</string>
     <string name="harcamalar_text_third_fragment">Harcamalarınızı; TL, Dolar, Euro, Sterlin para birimleriyle ve sürekli güncellenen kurla takip edin!</string>
-    <string name="next">Geç</string>
-    <string name="bitir">Bitir</string>
+    <string name="next">GEÇ</string>
+    <string name="bitir">BİTİR</string>
 </resources>

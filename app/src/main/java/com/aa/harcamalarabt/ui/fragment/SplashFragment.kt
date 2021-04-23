@@ -1,4 +1,4 @@
-package com.aa.harcamalarabt.ui
+package com.aa.harcamalarabt.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -26,7 +26,6 @@ class SplashFragment : Fragment() {
         val view = binding.root
 
         Handler(Looper.getMainLooper()).postDelayed({
-
             if(onBoardingFinished()){
                 findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
             } else {
