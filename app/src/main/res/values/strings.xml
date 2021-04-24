@@ -18,4 +18,9 @@
     <string name="tl">TL</string>
     <string name="sample_money">9800 TL</string>
     <string name="sample_mehmet_bey">Mehmet Bey</string>
+    <string name="sample_elektrik">Elektrik</string>
+    <string name="sample_200_tl">200 TL</string>
+    <string name="info_image">Info Image</string>
+    <string name="add_new_item">Add New Item</string>
+    <string name="ekle">Ekle</string>
 </resources>
