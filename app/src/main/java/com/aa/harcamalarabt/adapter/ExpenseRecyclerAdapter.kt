@@ -16,11 +16,12 @@ class ExpenseRecyclerAdapter(private val expenseList: ArrayList<ExpenseModel>): 
     }
 
     override fun onBindViewHolder(holder: ExpenseViewHolder, position: Int) {
-        holder.itemBinding.textViewTitle.text = "asklkfads"
+        holder.itemBinding.textViewTitle.text = expenseList[position].expenseTitle
+        holder.itemBinding.textViewPrice.text = expenseList[position].expensePrice
     }
 
     override fun getItemCount(): Int {
-        return 3
+        return expenseList.size
     }
 
 }
