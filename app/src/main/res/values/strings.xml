@@ -10,4 +10,12 @@
     <string name="harcamalar_text_third_fragment">Harcamalarınızı; TL, Dolar, Euro, Sterlin para birimleriyle ve sürekli güncellenen kurla takip edin!</string>
     <string name="next">GEÇ</string>
     <string name="bitir">BİTİR</string>
+    <string name="merhaba">Merhaba</string>
+    <string name="harcamaniz">Harcamanız</string>
+    <string name="euro">EURO</string>
+    <string name="dolar">DOLAR</string>
+    <string name="sterlin">STERLIN</string>
+    <string name="tl">TL</string>
+    <string name="sample_money">9800 TL</string>
+    <string name="sample_mehmet_bey">Mehmet Bey</string>
 </resources>
