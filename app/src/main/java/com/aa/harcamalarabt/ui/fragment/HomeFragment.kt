@@ -1,11 +1,14 @@
 package com.aa.harcamalarabt.ui.fragment
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aa.harcamalarabt.R
 import com.aa.harcamalarabt.adapter.ExpenseRecyclerAdapter
@@ -29,6 +32,7 @@ class HomeFragment : Fragment() {
         return view
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -56,6 +60,21 @@ class HomeFragment : Fragment() {
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
+
+
+        val sharedPreferences = requireActivity().getSharedPreferences("Name", Context.MODE_PRIVATE)
+        val name = sharedPreferences.getString("name","İsim Giriniz")
+
+        when(sharedPreferences.getInt("gender",3)){
+            1 -> binding.textViewUserName.text = "$name Bey"
+            2 -> binding.textViewUserName.text = "$name Hanım"
+            3 -> binding.textViewUserName.text = name
+        }
+
+        binding.textViewUserName.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToChangeNameF()
+            Navigation.findNavController(it).navigate(action)
+        }
 
         binding.buttonTl.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
 
@@ -87,6 +106,11 @@ class HomeFragment : Fragment() {
             binding.buttonEuro.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

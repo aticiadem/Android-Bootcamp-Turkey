@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.ChangeNameF">
+
+    <TextView
+        android:id="@+id/textViewInputName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/isim_degistir"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextUserName"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:autofillHints="true"
+        android:background="@drawable/onboarding_button_background"
+        android:hint="@string/isminizi_giriniz"
+        android:inputType="text"
+        android:maxLength="24"
+        android:paddingStart="20dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="15dp"
+        android:singleLine="true"
+        android:textColorHint="@color/light_orange"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewInputName" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="@+id/editTextUserName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextUserName">
+
+        <RadioButton
+            android:id="@+id/radioButtonMan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@drawable/radio_button_clicked"
+            android:text="@string/erkek"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonWomen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:buttonTint="@drawable/radio_button_clicked"
+            android:text="@string/kadin"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonNoSpecify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:buttonTint="@drawable/radio_button_clicked"
+            android:text="@string/belirtmek_istemiyorum"
+            android:textSize="18sp" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/onboarding_button_background"
+        android:backgroundTint="@color/light_orange"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:text="@string/kaydet"
+        app:layout_constraintEnd_toEndOf="@+id/editTextUserName"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

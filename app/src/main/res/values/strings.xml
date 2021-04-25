@@ -23,4 +23,10 @@
     <string name="info_image">Info Image</string>
     <string name="add_new_item">Add New Item</string>
     <string name="ekle">Ekle</string>
+    <string name="isminizi_giriniz">İsminizi Giriniz</string>
+    <string name="erkek">Erkek</string>
+    <string name="kadin">Kadın</string>
+    <string name="belirtmek_istemiyorum">Belirtmek İstemiyorum</string>
+    <string name="kaydet">Kaydet</string>
+    <string name="isim_degistir">İsim Değiştir</string>
 </resources>

@@ -25,4 +25,10 @@
         <item name="cornerSize">4dp</item>
     </style>
 
+    <style name="EditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+    </style>
+
+    @style/Widget.MaterialComponents.TextInputLayout.OutlinedBox
+
 </resources>
