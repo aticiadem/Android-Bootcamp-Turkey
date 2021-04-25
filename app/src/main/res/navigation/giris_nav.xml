@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_homeFragment_to_addExpenseF"
             app:destination="@id/addExpenseF" />
+        <action
+            android:id="@+id/action_homeFragment_to_expenseDetailF"
+            app:destination="@id/expenseDetailF" />
     </fragment>
     <fragment
         android:id="@+id/changeNameF"
@@ -60,6 +63,15 @@
         tools:layout="@layout/fragment_add_expense" >
         <action
             android:id="@+id/action_addExpenseF_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/expenseDetailF"
+        android:name="com.aa.harcamalarabt.ui.fragment.ExpenseDetailF"
+        android:label="fragment_expense_detail"
+        tools:layout="@layout/fragment_expense_detail" >
+        <action
+            android:id="@+id/action_expenseDetailF_to_homeFragment2"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
