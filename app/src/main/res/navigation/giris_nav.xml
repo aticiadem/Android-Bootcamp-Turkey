@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_homeFragment_to_changeNameF"
             app:destination="@id/changeNameF" />
+        <action
+            android:id="@+id/action_homeFragment_to_addExpenseF"
+            app:destination="@id/addExpenseF" />
     </fragment>
     <fragment
         android:id="@+id/changeNameF"
@@ -48,6 +51,15 @@
         tools:layout="@layout/fragment_change_name" >
         <action
             android:id="@+id/action_changeNameF_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addExpenseF"
+        android:name="com.aa.harcamalarabt.ui.fragment.AddExpenseF"
+        android:label="fragment_add_expense"
+        tools:layout="@layout/fragment_add_expense" >
+        <action
+            android:id="@+id/action_addExpenseF_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

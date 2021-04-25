@@ -76,6 +76,11 @@ class HomeFragment : Fragment() {
             Navigation.findNavController(it).navigate(action)
         }
 
+        binding.fab.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToAddExpenseF()
+            Navigation.findNavController(it).navigate(action)
+        }
+
         binding.buttonTl.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
 
         binding.buttonDolar.setOnClickListener {
@@ -106,6 +111,11 @@ class HomeFragment : Fragment() {
             binding.buttonEuro.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
         }
 
+    }
+
+    private fun onClickFab(view: View){
+        val action = HomeFragmentDirections.actionHomeFragmentToAddExpenseF()
+        Navigation.findNavController(view).navigate(action)
     }
 
     override fun onDestroyView() {

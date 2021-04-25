@@ -102,6 +102,7 @@
             android:layout_marginEnd="4dp"
             android:background="@drawable/home_button_background"
             android:text="@string/tl"
+            android:textAllCaps="true"
             android:textColor="@color/dark_gray"
             android:textSize="16sp" />
 
@@ -114,6 +115,7 @@
             android:layout_marginEnd="4dp"
             android:background="@drawable/home_button_background"
             android:text="@string/sterlin"
+            android:textAllCaps="true"
             android:textColor="@color/dark_gray"
             android:textSize="16sp" />
 
@@ -126,6 +128,7 @@
             android:layout_marginEnd="4dp"
             android:background="@drawable/home_button_background"
             android:text="@string/dolar"
+            android:textAllCaps="true"
             android:textColor="@color/dark_gray"
             android:textSize="16sp" />
 
@@ -137,6 +140,7 @@
             android:layout_marginStart="4dp"
             android:background="@drawable/home_button_background"
             android:text="@string/euro"
+            android:textAllCaps="true"
             android:textColor="@color/dark_gray"
             android:textSize="16sp" />
 
@@ -161,6 +165,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/light_orange"
+        android:onClick="onClickFab"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center"

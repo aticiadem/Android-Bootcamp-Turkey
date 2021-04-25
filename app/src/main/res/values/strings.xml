@@ -12,10 +12,11 @@
     <string name="bitir">BİTİR</string>
     <string name="merhaba">Merhaba</string>
     <string name="harcamaniz">Harcamanız</string>
-    <string name="euro">EURO</string>
-    <string name="dolar">DOLAR</string>
+    <string name="euro">Euro</string>
+    <string name="dolar">Dolar</string>
     <string name="sterlin">STERLIN</string>
-    <string name="tl">TL</string>
+    <string name="sterlin2">Sterlin</string>
+    <string name="tl">Tl</string>
     <string name="sample_money">9800 TL</string>
     <string name="sample_mehmet_bey">Mehmet Bey</string>
     <string name="sample_elektrik">Elektrik</string>
@@ -29,4 +30,10 @@
     <string name="belirtmek_istemiyorum">Belirtmek İstemiyorum</string>
     <string name="kaydet">Kaydet</string>
     <string name="isim_degistir">İsim Değiştir</string>
+    <string name="harcama_ekle">Harcama Ekle</string>
+    <string name="aciklama">Açıklama</string>
+    <string name="harcama_tutari">Harcama Tutarı</string>
+    <string name="fatura">Fatura</string>
+    <string name="kira">Kira</string>
+    <string name="diger">Diğer</string>
 </resources>

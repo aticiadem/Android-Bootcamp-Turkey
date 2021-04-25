@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.AddExpenseF">
+
+    <TextView
+        android:id="@+id/textViewAddExpense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/harcama_ekle"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextStatement"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:autofillHints="true"
+        android:background="@drawable/onboarding_button_background"
+        android:hint="@string/aciklama"
+        android:inputType="text"
+        android:maxLength="24"
+        android:paddingStart="20dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="15dp"
+        android:singleLine="true"
+        android:textColorHint="@color/light_orange"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAddExpense" />
+
+    <EditText
+        android:id="@+id/editTextExpense"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:autofillHints="true"
+        android:background="@drawable/onboarding_button_background"
+        android:hint="@string/harcama_tutari"
+        android:inputType="text"
+        android:maxLength="24"
+        android:paddingStart="20dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="15dp"
+        android:singleLine="true"
+        android:textColorHint="@color/light_orange"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextStatement" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupExpense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="@+id/editTextExpense"
+        app:layout_constraintTop_toBottomOf="@+id/editTextExpense">
+
+        <RadioButton
+            android:id="@+id/radioButtonBill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@drawable/radio_button_clicked"
+            android:text="@string/fatura"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonRent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:buttonTint="@drawable/radio_button_clicked"
+            android:text="@string/kira"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonOther"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:buttonTint="@drawable/radio_button_clicked"
+            android:text="@string/diger"
+            android:textSize="15sp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radioGroupUnit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/editTextExpense"
+        app:layout_constraintStart_toStartOf="@+id/editTextExpense"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupExpense">
+
+        <RadioButton
+            android:id="@+id/radioButtonTl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:buttonTint="@drawable/radio_button_clicked"
+            android:text="@string/tl"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonSterlin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:buttonTint="@drawable/radio_button_clicked"
+            android:text="@string/sterlin2"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonDolar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:buttonTint="@drawable/radio_button_clicked"
+            android:text="@string/dolar"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonEuro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:buttonTint="@drawable/radio_button_clicked"
+            android:text="@string/euro"
+            android:textSize="15sp" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/onboarding_button_background"
+        android:backgroundTint="@color/light_orange"
+        android:text="@string/ekle"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/radioGroupUnit"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupUnit" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
