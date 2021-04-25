@@ -73,5 +73,9 @@
         <action
             android:id="@+id/action_expenseDetailF_to_homeFragment2"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="expenseId"
+            app:argType="integer"
+            android:defaultValue="1" />
     </fragment>
 </navigation>

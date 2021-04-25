@@ -110,7 +110,7 @@
             android:id="@+id/radioButtonTl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="6dp"
             android:buttonTint="@drawable/radio_button_clicked"
             android:text="@string/tl"
             android:textSize="15sp" />
@@ -119,8 +119,8 @@
             android:id="@+id/radioButtonSterlin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:buttonTint="@drawable/radio_button_clicked"
             android:text="@string/sterlin2"
             android:textSize="15sp" />
@@ -129,8 +129,8 @@
             android:id="@+id/radioButtonDolar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:buttonTint="@drawable/radio_button_clicked"
             android:text="@string/dolar"
             android:textSize="15sp" />
@@ -139,7 +139,7 @@
             android:id="@+id/radioButtonEuro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="6dp"
             android:buttonTint="@drawable/radio_button_clicked"
             android:text="@string/euro"
             android:textSize="15sp" />

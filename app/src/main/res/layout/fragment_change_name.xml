@@ -27,7 +27,7 @@
         android:background="@drawable/onboarding_button_background"
         android:hint="@string/isminizi_giriniz"
         android:inputType="text"
-        android:maxLength="24"
+        android:maxLength="20"
         android:paddingStart="20dp"
         android:paddingTop="15dp"
         android:paddingEnd="20dp"

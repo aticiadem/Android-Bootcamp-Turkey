@@ -7,19 +7,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aa.harcamalarabt.R
 import com.aa.harcamalarabt.adapter.ExpenseRecyclerAdapter
 import com.aa.harcamalarabt.databinding.FragmentHomeBinding
+import com.aa.harcamalarabt.model.CurrencyModel
 import com.aa.harcamalarabt.model.ExpenseModel
+import com.aa.harcamalarabt.service.CurrencyAPIService
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.schedulers.Schedulers
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: ExpenseRecyclerAdapter
+    private val service = CurrencyAPIService()
+    private val compositeDisposable = CompositeDisposable()
+    private lateinit var currencyDataList: List<CurrencyModel>
     private lateinit var expenseList: ArrayList<ExpenseModel>
 
     override fun onCreateView(
@@ -37,22 +47,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         expenseList = ArrayList()
-
-        val x = ExpenseModel("Elektrik","190 TL")
-        val y = ExpenseModel("Su","5 TL")
-        val z = ExpenseModel("Ayakkabı","120 TL")
-        val a = ExpenseModel("Araba","145900 TL")
-        val b = ExpenseModel("Dükkan Kirası","4500 TL")
-        val c = ExpenseModel("Baba Mekan","99999 TL")
-        val d = ExpenseModel("Umarım Olmuştur","1 TL")
-
-        expenseList.add(x)
-        expenseList.add(y)
-        expenseList.add(z)
-        expenseList.add(a)
-        expenseList.add(b)
-        expenseList.add(c)
-        expenseList.add(d)
+        currencyDataList = ArrayList()
+        getData()
 
         val layoutManager = LinearLayoutManager(requireActivity())
 
@@ -60,7 +56,6 @@ class HomeFragment : Fragment() {
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
-
 
         val sharedPreferences = requireActivity().getSharedPreferences("Name", Context.MODE_PRIVATE)
         val name = sharedPreferences.getString("name","İsim Giriniz")
@@ -84,33 +79,51 @@ class HomeFragment : Fragment() {
         binding.buttonTl.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
 
         binding.buttonDolar.setOnClickListener {
-            binding.buttonDolar.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
-            binding.buttonTl.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
-            binding.buttonSterlin.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
-            binding.buttonEuro.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
+            changeColor(it as Button)
+            getData()
         }
 
         binding.buttonSterlin.setOnClickListener {
-            binding.buttonSterlin.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
-            binding.buttonTl.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
-            binding.buttonDolar.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
-            binding.buttonEuro.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
+            changeColor(it as Button)
+            getData()
         }
 
         binding.buttonEuro.setOnClickListener {
-            binding.buttonEuro.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
-            binding.buttonTl.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
-            binding.buttonSterlin.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
-            binding.buttonDolar.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
+            changeColor(it as Button)
+            getData()
         }
 
         binding.buttonTl.setOnClickListener {
-            binding.buttonTl.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
-            binding.buttonDolar.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
-            binding.buttonSterlin.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
-            binding.buttonEuro.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
+            changeColor(it as Button)
+            getData()
         }
 
+    }
+
+    private fun changeColor(button: Button){
+        binding.buttonTl.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
+        binding.buttonDolar.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
+        binding.buttonSterlin.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
+        binding.buttonEuro.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
+        button.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
+    }
+
+    private fun getData(){
+        compositeDisposable.add(service.loadData()
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object: DisposableSingleObserver<CurrencyModel>(){
+                override fun onSuccess(t: CurrencyModel) {
+                    currencyDataList = listOf(t)
+                    println("Başardık Abi")
+                    for(i in currencyDataList){
+                        println(i.rates)
+                    }
+                }
+                override fun onError(e: Throwable) {
+                    println("Error")
+                }
+            }))
     }
 
     private fun onClickFab(view: View){
