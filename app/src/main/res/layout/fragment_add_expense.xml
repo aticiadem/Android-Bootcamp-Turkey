@@ -47,7 +47,7 @@
         android:autofillHints="true"
         android:background="@drawable/onboarding_button_background"
         android:hint="@string/harcama_tutari"
-        android:inputType="text"
+        android:inputType="numberDecimal"
         android:maxLength="24"
         android:paddingStart="20dp"
         android:paddingTop="15dp"

@@ -59,7 +59,6 @@ class HomeFragment : Fragment() {
 
         val sharedPreferences = requireActivity().getSharedPreferences("Name", Context.MODE_PRIVATE)
         val name = sharedPreferences.getString("name","İsim Giriniz")
-
         when(sharedPreferences.getInt("gender",3)){
             1 -> binding.textViewUserName.text = "$name Bey"
             2 -> binding.textViewUserName.text = "$name Hanım"
@@ -80,22 +79,22 @@ class HomeFragment : Fragment() {
 
         binding.buttonDolar.setOnClickListener {
             changeColor(it as Button)
-            getData()
+            //getData()
         }
 
         binding.buttonSterlin.setOnClickListener {
             changeColor(it as Button)
-            getData()
+            //getData()
         }
 
         binding.buttonEuro.setOnClickListener {
             changeColor(it as Button)
-            getData()
+            //getData()
         }
 
         binding.buttonTl.setOnClickListener {
             changeColor(it as Button)
-            getData()
+            //getData()
         }
 
     }
