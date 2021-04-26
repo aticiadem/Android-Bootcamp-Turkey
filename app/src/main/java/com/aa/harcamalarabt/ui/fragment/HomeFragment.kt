@@ -9,10 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aa.harcamalarabt.R
 import com.aa.harcamalarabt.adapter.ExpenseRecyclerAdapter
+import com.aa.harcamalarabt.data.ExpenseDatabase
 import com.aa.harcamalarabt.databinding.FragmentHomeBinding
 import com.aa.harcamalarabt.model.CurrencyModel
 import com.aa.harcamalarabt.model.ExpenseModel
@@ -26,11 +29,11 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: ExpenseRecyclerAdapter
     private val service = CurrencyAPIService()
     private val compositeDisposable = CompositeDisposable()
     private lateinit var currencyDataList: List<CurrencyModel>
     private lateinit var expenseList: ArrayList<ExpenseModel>
+    private lateinit var db: ExpenseDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +41,6 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater,container,false)
         val view = binding.root
-
         return view
     }
 
@@ -46,13 +48,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        db = ExpenseDatabase.getDatabase(requireContext())
+
         expenseList = ArrayList()
         currencyDataList = ArrayList()
-        getData()
+        //getData()
 
+        // Adapter
+        val adapter = ExpenseRecyclerAdapter()
+        adapter.setData(db.expenseDao().readAllData())
         val layoutManager = LinearLayoutManager(requireActivity())
-
-        adapter = ExpenseRecyclerAdapter(expenseList)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
@@ -123,11 +128,6 @@ class HomeFragment : Fragment() {
                     println("Error")
                 }
             }))
-    }
-
-    private fun onClickFab(view: View){
-        val action = HomeFragmentDirections.actionHomeFragmentToAddExpenseF()
-        Navigation.findNavController(view).navigate(action)
     }
 
     override fun onDestroyView() {

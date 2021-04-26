@@ -1,14 +1,23 @@
 package com.aa.harcamalarabt.data
 
-import androidx.lifecycle.LiveData
 import com.aa.harcamalarabt.model.ExpenseModel
 
 class ExpenseRepository(private val expenseDao: ExpenseDao) {
 
-    val readAllData: LiveData<List<ExpenseModel>> = expenseDao.readAllData()
-
-    suspend fun addExpense(expense: ExpenseModel){
+    fun addExpense(expense: ExpenseModel){
         expenseDao.addExpense(expense)
+    }
+
+    fun readAllData(): List<ExpenseModel>{
+        return expenseDao.readAllData()
+    }
+
+    fun deleteExpense(expense: ExpenseModel){
+        expenseDao.deleteExpense(expense)
+    }
+
+    fun getExpense(expenseId: Int): ExpenseModel{
+        return expenseDao.getExpense(expenseId)
     }
 
 }

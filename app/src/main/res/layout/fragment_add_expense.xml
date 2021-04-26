@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewAddExpense" />
 
     <EditText
-        android:id="@+id/editTextExpense"
+        android:id="@+id/editTextPriceValue"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -65,8 +65,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="@+id/editTextExpense"
-        app:layout_constraintTop_toBottomOf="@+id/editTextExpense">
+        app:layout_constraintStart_toStartOf="@+id/editTextPriceValue"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPriceValue">
 
         <RadioButton
             android:id="@+id/radioButtonBill"
@@ -102,8 +102,8 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/editTextExpense"
-        app:layout_constraintStart_toStartOf="@+id/editTextExpense"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPriceValue"
+        app:layout_constraintStart_toStartOf="@+id/editTextPriceValue"
         app:layout_constraintTop_toBottomOf="@+id/radioGroupExpense">
 
         <RadioButton
