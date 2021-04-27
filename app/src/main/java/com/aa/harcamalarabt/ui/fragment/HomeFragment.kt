@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
     private val service = CurrencyAPIService()
     private val compositeDisposable = CompositeDisposable()
     private lateinit var currencyDataList: List<CurrencyModel>
-    private lateinit var expenseList: ArrayList<ExpenseModel>
+    private lateinit var expenseList: List<ExpenseModel>
     private lateinit var db: ExpenseDatabase
 
     override fun onCreateView(
@@ -50,17 +50,25 @@ class HomeFragment : Fragment() {
 
         db = ExpenseDatabase.getDatabase(requireContext())
 
-        expenseList = ArrayList()
+        var totalPrice = 0
+
+        expenseList = db.expenseDao().readAllData()
         currencyDataList = ArrayList()
-        //getData()
+        getData()
+
+        for (i in expenseList){
+            totalPrice += i.priceValue
+        }
 
         // Adapter
-        val adapter = ExpenseRecyclerAdapter()
+        val adapter = ExpenseRecyclerAdapter(1)
         adapter.setData(db.expenseDao().readAllData())
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
+
+        binding.textViewHarcama.text = totalPrice.toString()
 
         val sharedPreferences = requireActivity().getSharedPreferences("Name", Context.MODE_PRIVATE)
         val name = sharedPreferences.getString("name","İsim Giriniz")
@@ -82,26 +90,55 @@ class HomeFragment : Fragment() {
 
         binding.buttonTl.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
 
-        binding.buttonDolar.setOnClickListener {
+        binding.buttonTl.setOnClickListener {
             changeColor(it as Button)
             //getData()
+            changeCurrencyValue(1)
         }
 
         binding.buttonSterlin.setOnClickListener {
             changeColor(it as Button)
             //getData()
+            changeCurrencyValue(2)
+        }
+
+        binding.buttonDolar.setOnClickListener {
+            changeColor(it as Button)
+            //getData()
+            changeCurrencyValue(3)
         }
 
         binding.buttonEuro.setOnClickListener {
             changeColor(it as Button)
             //getData()
+            changeCurrencyValue(4)
         }
 
-        binding.buttonTl.setOnClickListener {
-            changeColor(it as Button)
-            //getData()
-        }
+    }
 
+    private fun changeCurrencyValue(currencyType: Int){
+        when(currencyType){
+            1 -> {
+                val adapter = ExpenseRecyclerAdapter(1)
+                adapter.setData(db.expenseDao().readAllData())
+                binding.recyclerView.adapter = adapter
+            }
+            2 -> {
+                val adapter = ExpenseRecyclerAdapter(2)
+                adapter.setData(db.expenseDao().readAllData())
+                binding.recyclerView.adapter = adapter
+            }
+            3 -> {
+                val adapter = ExpenseRecyclerAdapter(3)
+                adapter.setData(db.expenseDao().readAllData())
+                binding.recyclerView.adapter = adapter
+            }
+            4 -> {
+                val adapter = ExpenseRecyclerAdapter(4)
+                adapter.setData(db.expenseDao().readAllData())
+                binding.recyclerView.adapter = adapter
+            }
+        }
     }
 
     private fun changeColor(button: Button){

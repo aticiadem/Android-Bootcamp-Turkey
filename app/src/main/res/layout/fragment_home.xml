@@ -83,68 +83,81 @@
 
     </androidx.cardview.widget.CardView>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView">
 
         <Button
             android:id="@+id/buttonTl"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
             style="@style/Widget.AppCompat.Button"
-            android:layout_marginEnd="4dp"
+            android:layout_width="82dp"
+            android:layout_height="40dp"
             android:background="@drawable/home_button_background"
             android:text="@string/tl"
             android:textAllCaps="true"
             android:textColor="@color/dark_gray"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonSterlin"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/buttonSterlin"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
             style="@style/Widget.AppCompat.Button"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
+            android:layout_width="82dp"
+            android:layout_height="40dp"
             android:background="@drawable/home_button_background"
             android:text="@string/sterlin"
             android:textAllCaps="true"
             android:textColor="@color/dark_gray"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonDolar"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/buttonTl"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/buttonDolar"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
             style="@style/Widget.AppCompat.Button"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
+            android:layout_width="82dp"
+            android:layout_height="40dp"
             android:background="@drawable/home_button_background"
             android:text="@string/dolar"
             android:textAllCaps="true"
             android:textColor="@color/dark_gray"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonEuro"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/buttonSterlin"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/buttonEuro"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
             style="@style/Widget.AppCompat.Button"
-            android:layout_marginStart="4dp"
+            android:layout_width="82dp"
+            android:layout_height="40dp"
             android:background="@drawable/home_button_background"
             android:text="@string/euro"
             android:textAllCaps="true"
             android:textColor="@color/dark_gray"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/buttonDolar"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

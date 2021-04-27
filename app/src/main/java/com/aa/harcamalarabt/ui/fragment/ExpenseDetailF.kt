@@ -1,5 +1,6 @@
 package com.aa.harcamalarabt.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -30,6 +31,7 @@ class ExpenseDetailF : Fragment() {
         return view
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -44,6 +46,13 @@ class ExpenseDetailF : Fragment() {
                     else -> R.drawable.shopping_bag
                 }
         )
+
+        when(currentModel.currencyType){
+            1 -> binding.textViewPrice.text = "${currentModel.priceValue} TL"
+            2 -> binding.textViewPrice.text = "${currentModel.priceValue} Sterlin"
+            3 -> binding.textViewPrice.text = "${currentModel.priceValue} Dolar"
+            4 -> binding.textViewPrice.text = "${currentModel.priceValue} Euro"
+        }
 
         binding.textViewExpense.text = currentModel.statement
 
