@@ -269,10 +269,9 @@ class HomeFragment : Fragment() {
                 editor.putFloat("dolar",it.rates.uSD.toFloat())
                 editor.putFloat("manat",it.rates.aZN.toFloat())
                 editor.apply()
-                println("Yükleme başarılı")
-
                 binding.recyclerView.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.GONE
+                println("HomeFragment Veriler Alindi")
             }
         })
         viewModel.loadingMessage.observe(viewLifecycleOwner, { loading ->
@@ -289,9 +288,10 @@ class HomeFragment : Fragment() {
             error?.let {
                 if (it){
                     // Error true
-                    Toast.makeText(requireContext(),"Error",Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(),"Error",Toast.LENGTH_SHORT).show()
                     binding.progressBar.visibility = View.GONE
                     binding.recyclerView.visibility = View.VISIBLE
+                    println("HomeFragmentError")
                 }
                 /*else{
                     // Error false
