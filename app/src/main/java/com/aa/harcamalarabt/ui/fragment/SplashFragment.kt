@@ -1,6 +1,7 @@
 package com.aa.harcamalarabt.ui.fragment
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,6 +17,7 @@ class SplashFragment : Fragment() {
 
     private var _binding: FragmentSplashBinding? = null
     private val binding get() = _binding!!
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -38,6 +40,11 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sharedPreferences = requireActivity().getSharedPreferences("Name", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt("number",0)
+        editor.apply()
 
         binding.lottie.setAnimation("animation.json")
         binding.lottie.playAnimation()

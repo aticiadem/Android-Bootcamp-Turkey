@@ -2,6 +2,7 @@ package com.aa.harcamalarabt.ui.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -37,6 +38,7 @@ class HomeFragment : Fragment() {
     private lateinit var expenseList: List<ExpenseModel>
     private lateinit var db: ExpenseDatabase
     private lateinit var adapter: ExpenseRecyclerAdapter
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +49,6 @@ class HomeFragment : Fragment() {
         return view
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -56,70 +57,36 @@ class HomeFragment : Fragment() {
 
         expenseList = db.expenseDao().readAllData()
         currencyDataList = ArrayList()
+        sharedPreferences = requireActivity().getSharedPreferences("Name", Context.MODE_PRIVATE)
 
-        val sharedPreferences = requireActivity().getSharedPreferences("Name",
-                Context.MODE_PRIVATE)
-        val name = sharedPreferences.getString("name","İsim Giriniz")
-        val dataTl = sharedPreferences.getFloat("tl", 1.1F)
-        val dataSterlin = sharedPreferences.getFloat("sterlin", 1.1F)
-        val dataDolar = sharedPreferences.getFloat("dolar", 1.1F)
-        val dataManat = sharedPreferences.getFloat("manat", 1.1F)
-
-        currencyDataList.clear()
-        currencyDataList.add(dataTl.toDouble())
-        currencyDataList.add(dataSterlin.toDouble())
-        currencyDataList.add(dataDolar.toDouble())
-        currencyDataList.add(dataManat.toDouble())
-
-        viewModel.getData()
-        observeLiveData(1)
-
-        when(sharedPreferences.getInt("gender",3)){
-            1 -> binding.textViewUserName.text = "$name Bey"
-            2 -> binding.textViewUserName.text = "$name Hanım"
-            3 -> binding.textViewUserName.text = name
-        }
-
-        // Adapter
-        adapter = ExpenseRecyclerAdapter(1,currencyDataList)
-        adapter.setData(expenseList)
-        val layoutManager = LinearLayoutManager(requireActivity())
-        binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.setHasFixedSize(true)
-
-        binding.buttonTl.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
+        workPlanner(sharedPreferences,expenseList,currencyDataList)
 
         binding.buttonTl.setOnClickListener {
             changeColor(it as Button)
-            viewModel.getData()
+            //viewModel.getData()
+            changeLastClicked(sharedPreferences,1)
             changeCurrencyValue(1)
-            observeLiveData(1)
-            checkExpensePrice(1)
         }
 
         binding.buttonSterlin.setOnClickListener {
             changeColor(it as Button)
-            viewModel.getData()
+            //viewModel.getData()
+            changeLastClicked(sharedPreferences,2)
             changeCurrencyValue(2)
-            observeLiveData(2)
-            checkExpensePrice(2)
         }
 
-        binding.buttonDolar.setOnClickListener {
+        binding.buttonDolar.setOnClickListener{
             changeColor(it as Button)
-            viewModel.getData()
+            //viewModel.getData()
+            changeLastClicked(sharedPreferences,3)
             changeCurrencyValue(3)
-            observeLiveData(3)
-            checkExpensePrice(3)
         }
 
         binding.buttonManat.setOnClickListener {
             changeColor(it as Button)
-            viewModel.getData()
+            //viewModel.getData()
+            changeLastClicked(sharedPreferences,4)
             changeCurrencyValue(4)
-            observeLiveData(4)
-            checkExpensePrice(4)
         }
 
         binding.textViewUserName.setOnClickListener {
@@ -134,36 +101,47 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun firstScreen(){
-
+    private fun changeLastClicked(sharedPreferences: SharedPreferences, lastClickedItem: Int){
+        val editor = sharedPreferences.edit()
+        editor.putInt("lastClickedItem",lastClickedItem)
+        editor.apply()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun changeCurrencyValue(currencyType: Int){
         when(currencyType){
             1 -> {
                 val adapter = ExpenseRecyclerAdapter(1,currencyDataList)
                 adapter.setData(db.expenseDao().readAllData())
                 binding.recyclerView.adapter = adapter
+                val totalPrice = calculator(1,currencyDataList,expenseList)
+                binding.textViewHarcama.text = "${DecimalFormat("#.#").format(totalPrice)} TL"
             }
             2 -> {
                 val adapter = ExpenseRecyclerAdapter(2,currencyDataList)
                 adapter.setData(db.expenseDao().readAllData())
                 binding.recyclerView.adapter = adapter
+                val totalPrice = calculator(2,currencyDataList,expenseList)
+                binding.textViewHarcama.text = "${DecimalFormat("#.#").format(totalPrice)} Sterlin"
             }
             3 -> {
                 val adapter = ExpenseRecyclerAdapter(3,currencyDataList)
                 adapter.setData(db.expenseDao().readAllData())
                 binding.recyclerView.adapter = adapter
+                val totalPrice = calculator(3,currencyDataList,expenseList)
+                binding.textViewHarcama.text = "${DecimalFormat("#.#").format(totalPrice)} Dolar"
             }
             4 -> {
                 val adapter = ExpenseRecyclerAdapter(4,currencyDataList)
                 adapter.setData(db.expenseDao().readAllData())
                 binding.recyclerView.adapter = adapter
+                val totalPrice = calculator(4,currencyDataList,expenseList)
+                binding.textViewHarcama.text = "${DecimalFormat("#.#").format(totalPrice)} Manat"
             }
         }
     }
 
-    private fun calculator(currencyType: Int, list: ArrayList<Double>): Double{
+    private fun calculator(currencyType: Int, list: ArrayList<Double>, expenseList: List<ExpenseModel>): Double{
         var priceValue = 0.0
         for(i in expenseList){
             when(currencyType){
@@ -282,45 +260,32 @@ class HomeFragment : Fragment() {
         button.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
     }
 
-    private fun observeLiveData(type: Int){
-        val sharedPreferences = requireActivity().getSharedPreferences("Name",
-                Context.MODE_PRIVATE)
-        viewModel.data.observe(viewLifecycleOwner, Observer { data ->
+    private fun observeLiveData(sharedPreferences: SharedPreferences){
+        viewModel.data.observe(viewLifecycleOwner, { data ->
             data.let {
-                currencyDataList.clear()
-                currencyDataList.add(it.rates.tRY)
-                currencyDataList.add(it.rates.gBP)
-                currencyDataList.add(it.rates.uSD)
-                currencyDataList.add(it.rates.aZN)
-
                 val editor = sharedPreferences.edit()
                 editor.putFloat("tl",it.rates.tRY.toFloat())
                 editor.putFloat("sterlin",it.rates.gBP.toFloat())
                 editor.putFloat("dolar",it.rates.uSD.toFloat())
                 editor.putFloat("manat",it.rates.aZN.toFloat())
                 editor.apply()
+                println("Yükleme başarılı")
 
-                adapter = ExpenseRecyclerAdapter(type,currencyDataList)
-                adapter.setData(expenseList)
-                binding.recyclerView.adapter = adapter
                 binding.recyclerView.visibility = View.VISIBLE
-                binding.progressBar.visibility = View.INVISIBLE
-                // Error message
+                binding.progressBar.visibility = View.GONE
             }
         })
-        viewModel.loadingMessage.observe(viewLifecycleOwner, Observer { loading ->
+        viewModel.loadingMessage.observe(viewLifecycleOwner, { loading ->
             loading?.let {
                 if (it){
                     binding.progressBar.visibility = View.VISIBLE
                     binding.recyclerView.visibility = View.INVISIBLE
-                    binding.textViewHarcama.text = ""
-                    // Error message
                 } else {
                     binding.progressBar.visibility = View.GONE
                 }
             }
         })
-        viewModel.errorMessage.observe(viewLifecycleOwner, Observer { error ->
+        viewModel.errorMessage.observe(viewLifecycleOwner, { error ->
             error?.let {
                 if (it){
                     // Error true
@@ -336,19 +301,90 @@ class HomeFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun checkExpensePrice(type: Int){
-        if(type == 1) {
-            binding.textViewHarcama.text =
-                    "${DecimalFormat("##.#").format(calculator(1,currencyDataList))} TL"
-        } else if(type == 2){
-            binding.textViewHarcama.text =
-                    "${DecimalFormat("##.#").format(calculator(2,currencyDataList))} Sterlin"
-        } else if(type == 3){
-            binding.textViewHarcama.text =
-                    "${DecimalFormat("##.#").format(calculator(3,currencyDataList))} Dolar"
+    private fun workPlanner(sharedPreferences: SharedPreferences,
+                            expenseList: List<ExpenseModel>,
+                            currencyDataList: ArrayList<Double>) {
+        val x = sharedPreferences.getInt("number",0)
+        if(x == 0){
+            // one time
+            viewModel.getData()
+            observeLiveData(sharedPreferences)
+
+            val name = sharedPreferences.getString("name","İsim Giriniz")
+            val lastClickedItem = sharedPreferences.getInt("lastClickedItem",1)
+            val dataTl = sharedPreferences.getFloat("tl", 23.3F)
+            val dataSterlin = sharedPreferences.getFloat("sterlin", 100.0F)
+            val dataDolar = sharedPreferences.getFloat("dolar", 1.4F)
+            val dataManat = sharedPreferences.getFloat("manat", 54.3F)
+
+            currencyDataList.clear()
+            currencyDataList.add(dataTl.toDouble())
+            currencyDataList.add(dataSterlin.toDouble())
+            currencyDataList.add(dataDolar.toDouble())
+            currencyDataList.add(dataManat.toDouble())
+
+            when(sharedPreferences.getInt("gender",3)){
+                1 -> binding.textViewUserName.text = "$name Bey"
+                2 -> binding.textViewUserName.text = "$name Hanım"
+                3 -> binding.textViewUserName.text = name
+            }
+
+            when(lastClickedItem){
+                1 -> binding.buttonTl.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
+                2 -> binding.buttonSterlin.setTextColor(ContextCompat.getColor(requireActivity(),R.color.orange))
+                3 -> binding.buttonDolar.setTextColor(ContextCompat.getColor(requireActivity(),R.color.orange))
+                else -> binding.buttonManat.setTextColor(ContextCompat.getColor(requireActivity(),R.color.orange))
+            }
+
+            adapter = ExpenseRecyclerAdapter(lastClickedItem,currencyDataList)
+            adapter.setData(expenseList)
+            val layoutManager = LinearLayoutManager(requireActivity())
+            binding.recyclerView.layoutManager = layoutManager
+            binding.recyclerView.adapter = adapter
+            binding.recyclerView.setHasFixedSize(true)
+
+            changeCurrencyValue(lastClickedItem)
+
+            val editor = sharedPreferences.edit()
+            editor.putInt("number",1)
+            editor.apply()
+
         } else {
-            binding.textViewHarcama.text =
-                    "${DecimalFormat("##.#").format(calculator(4,currencyDataList))} Manat"
+
+            val name = sharedPreferences.getString("name","İsim Giriniz")
+            val lastClickedItem = sharedPreferences.getInt("lastClickedItem",1)
+            val dataTl = sharedPreferences.getFloat("tl", 23.3F)
+            val dataSterlin = sharedPreferences.getFloat("sterlin", 100.0F)
+            val dataDolar = sharedPreferences.getFloat("dolar", 1.4F)
+            val dataManat = sharedPreferences.getFloat("manat", 54.3F)
+
+            currencyDataList.clear()
+            currencyDataList.add(dataTl.toDouble())
+            currencyDataList.add(dataSterlin.toDouble())
+            currencyDataList.add(dataDolar.toDouble())
+            currencyDataList.add(dataManat.toDouble())
+
+            adapter = ExpenseRecyclerAdapter(1,currencyDataList)
+            adapter.setData(expenseList)
+            val layoutManager = LinearLayoutManager(requireActivity())
+            binding.recyclerView.layoutManager = layoutManager
+            binding.recyclerView.adapter = adapter
+            binding.recyclerView.setHasFixedSize(true)
+
+            when(sharedPreferences.getInt("gender",3)){
+                1 -> binding.textViewUserName.text = "$name Bey"
+                2 -> binding.textViewUserName.text = "$name Hanım"
+                3 -> binding.textViewUserName.text = name
+            }
+
+            changeCurrencyValue(lastClickedItem)
+
+            when(lastClickedItem){
+                1 -> binding.buttonTl.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
+                2 -> binding.buttonSterlin.setTextColor(ContextCompat.getColor(requireActivity(),R.color.orange))
+                3 -> binding.buttonDolar.setTextColor(ContextCompat.getColor(requireActivity(),R.color.orange))
+                else -> binding.buttonManat.setTextColor(ContextCompat.getColor(requireActivity(),R.color.orange))
+            }
         }
     }
 

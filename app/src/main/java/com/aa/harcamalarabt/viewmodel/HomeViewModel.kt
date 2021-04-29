@@ -36,6 +36,7 @@ class HomeViewModel: ViewModel() {
                 override fun onError(e: Throwable) {
                     errorMessage.value = true
                     loadingMessage.value = false
+                    println(e.localizedMessage)
                 }
             }))
     }
