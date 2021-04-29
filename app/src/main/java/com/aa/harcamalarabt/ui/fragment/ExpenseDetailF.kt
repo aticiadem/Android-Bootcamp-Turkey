@@ -51,7 +51,7 @@ class ExpenseDetailF : Fragment() {
             1 -> binding.textViewPrice.text = "${currentModel.priceValue} TL"
             2 -> binding.textViewPrice.text = "${currentModel.priceValue} Sterlin"
             3 -> binding.textViewPrice.text = "${currentModel.priceValue} Dolar"
-            4 -> binding.textViewPrice.text = "${currentModel.priceValue} Euro"
+            4 -> binding.textViewPrice.text = "${currentModel.priceValue} Manat"
         }
 
         binding.textViewExpense.text = currentModel.statement

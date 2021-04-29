@@ -3,9 +3,13 @@
     <words>
       <w>aciklama</w>
       <w>altuni</w>
+      <w>basilmis</w>
+      <w>birim</w>
+      <w>birimlerin</w>
       <w>currenc</w>
       <w>diger</w>
       <w>dolar</w>
+      <w>donusumu</w>
       <w>ekle</w>
       <w>elektrik</w>
       <w>fatura</w>
@@ -21,12 +25,15 @@
       <w>kategorilendir</w>
       <w>kolayca</w>
       <w>limoni</w>
+      <w>manat</w>
       <w>merhaba</w>
       <w>onboarding</w>
       <w>sterlin</w>
+      <w>sterline</w>
       <w>takip</w>
       <w>turuncu</w>
       <w>uygulamasi</w>
+      <w>veritabanindaki</w>
     </words>
   </dictionary>
 </component>

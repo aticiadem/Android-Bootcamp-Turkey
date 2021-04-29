@@ -97,13 +97,15 @@
 
     <RadioGroup
         android:id="@+id/radioGroupUnit"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/editTextPriceValue"
-        app:layout_constraintStart_toStartOf="@+id/editTextPriceValue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroupExpense">
 
         <RadioButton
@@ -136,12 +138,12 @@
             android:textSize="15sp" />
 
         <RadioButton
-            android:id="@+id/radioButtonEuro"
+            android:id="@+id/radioButtonManat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:buttonTint="@drawable/radio_button_clicked"
-            android:text="@string/euro"
+            android:text="@string/manat"
             android:textSize="15sp" />
 
     </RadioGroup>
