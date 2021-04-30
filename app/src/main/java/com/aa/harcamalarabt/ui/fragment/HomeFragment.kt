@@ -320,9 +320,9 @@ class HomeFragment : Fragment() {
 
             val name = sharedPreferences.getString("name","İsim Giriniz")
             val lastClickedItem = sharedPreferences.getInt("lastClickedItem",1)
-            val dataTl = sharedPreferences.getFloat("tl", 1F)
-            val dataSterlin = sharedPreferences.getFloat("sterlin", 1F)
-            val dataDolar = sharedPreferences.getFloat("dolar", 1F)
+            val dataTl = sharedPreferences.getFloat("tl", 9.97F)
+            val dataSterlin = sharedPreferences.getFloat("sterlin", 0.87F)
+            val dataDolar = sharedPreferences.getFloat("dolar", 1.20F)
             val dataEuro = sharedPreferences.getFloat("euro", 1F)
 
             currencyDataList.clear()
@@ -361,9 +361,9 @@ class HomeFragment : Fragment() {
 
             val name = sharedPreferences.getString("name","İsim Giriniz")
             val lastClickedItem = sharedPreferences.getInt("lastClickedItem",1)
-            val dataTl = sharedPreferences.getFloat("tl", 1F)
-            val dataSterlin = sharedPreferences.getFloat("sterlin", 1F)
-            val dataDolar = sharedPreferences.getFloat("dolar", 1F)
+            val dataTl = sharedPreferences.getFloat("tl", 9.97F)
+            val dataSterlin = sharedPreferences.getFloat("sterlin", 0.87F)
+            val dataDolar = sharedPreferences.getFloat("dolar", 1.20F)
             val dataEuro = sharedPreferences.getFloat("euro", 1F)
 
             currencyDataList.clear()

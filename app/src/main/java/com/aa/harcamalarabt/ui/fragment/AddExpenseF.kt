@@ -59,8 +59,8 @@ class AddExpenseF : Fragment() {
                     && binding.editTextStatement.text.isNotEmpty() && binding.radioGroupUnit.checkedRadioButtonId != -1){
                 // Veri Kaydi
                 val statement = binding.editTextStatement.text.toString()
-                val priceValue = binding.editTextPriceValue.text.toString().toInt()
-                insertData(statement,priceValue,expenseValue!!,currencyType!!)
+                val priceValue = binding.editTextPriceValue.text.toString().toDouble()
+                insertData(statement,priceValue.toInt(),expenseValue!!,currencyType!!)
                 findNavController().navigate(R.id.action_addExpenseF_to_homeFragment)
                 Toast.makeText(requireContext(),"Kayıt Başarılı",Toast.LENGTH_SHORT).show()
             } else {
