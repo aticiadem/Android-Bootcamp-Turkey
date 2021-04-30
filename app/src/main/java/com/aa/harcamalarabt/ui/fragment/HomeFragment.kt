@@ -3,15 +3,16 @@ package com.aa.harcamalarabt.ui.fragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,14 +20,10 @@ import com.aa.harcamalarabt.R
 import com.aa.harcamalarabt.adapter.ExpenseRecyclerAdapter
 import com.aa.harcamalarabt.data.ExpenseDatabase
 import com.aa.harcamalarabt.databinding.FragmentHomeBinding
-import com.aa.harcamalarabt.model.CurrencyModel
 import com.aa.harcamalarabt.model.ExpenseModel
-import com.aa.harcamalarabt.service.CurrencyAPIService
 import com.aa.harcamalarabt.viewmodel.HomeViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import java.text.DecimalFormat
 
 class HomeFragment : Fragment() {
@@ -115,21 +112,21 @@ class HomeFragment : Fragment() {
                 adapter.setData(db.expenseDao().readAllData())
                 binding.recyclerView.adapter = adapter
                 val totalPrice = calculator(1,currencyDataList,expenseList)
-                binding.textViewHarcama.text = "${DecimalFormat("#.#").format(totalPrice)} TL"
+                binding.textViewHarcama.text = "${DecimalFormat("#.#").format(totalPrice)} ₺"
             }
             2 -> {
                 val adapter = ExpenseRecyclerAdapter(2,currencyDataList)
                 adapter.setData(db.expenseDao().readAllData())
                 binding.recyclerView.adapter = adapter
                 val totalPrice = calculator(2,currencyDataList,expenseList)
-                binding.textViewHarcama.text = "${DecimalFormat("#.#").format(totalPrice)} Sterlin"
+                binding.textViewHarcama.text = "${DecimalFormat("#.#").format(totalPrice)} £"
             }
             3 -> {
                 val adapter = ExpenseRecyclerAdapter(3,currencyDataList)
                 adapter.setData(db.expenseDao().readAllData())
                 binding.recyclerView.adapter = adapter
                 val totalPrice = calculator(3,currencyDataList,expenseList)
-                binding.textViewHarcama.text = "${DecimalFormat("#.#").format(totalPrice)} Dolar"
+                binding.textViewHarcama.text = "${DecimalFormat("#.#").format(totalPrice)} $"
             }
             4 -> {
                 val adapter = ExpenseRecyclerAdapter(4,currencyDataList)
@@ -164,11 +161,10 @@ class HomeFragment : Fragment() {
                             val total = i.priceValue * value
                             priceValue += total
                         }
-                        4 -> { // Manat
-                            val x = 1/list[3]
-                            val value = x*list[0]
-                            val total = i.priceValue * value
-                            priceValue += total
+                        4 -> { // Euro
+                            val tl_1_kac_euro = 1*list[0]
+                            val y = i.priceValue * tl_1_kac_euro
+                            priceValue += y
                         }
                     }
                 }
@@ -190,10 +186,9 @@ class HomeFragment : Fragment() {
                             priceValue += total
                         }
                         4 -> { // Manat
-                            val x = 1/list[3]
-                            val value = x*list[1]
-                            val total = i.priceValue * value
-                            priceValue += total
+                            val tl_1_kac_euro = 1*list[1]
+                            val y = i.priceValue * tl_1_kac_euro
+                            priceValue += y
                         }
                     }
                 }
@@ -215,14 +210,13 @@ class HomeFragment : Fragment() {
                             priceValue += i.priceValue
                         }
                         4 -> { // Manat
-                            val x = 1/list[3]
-                            val value = x * list[2]
-                            val total = i.priceValue * value
-                            priceValue += total
+                            val tl_1_kac_euro = 1*list[2]
+                            val y = i.priceValue * tl_1_kac_euro
+                            priceValue += y
                         }
                     }
                 }
-                4 -> { // Manat a basilmis
+                4 -> { // Euro yaa basilmis
                     when(i.currencyType){
                         1 -> { // TL
                             val x = 1/list[0]
@@ -267,7 +261,7 @@ class HomeFragment : Fragment() {
                 editor.putFloat("tl",it.rates.tRY.toFloat())
                 editor.putFloat("sterlin",it.rates.gBP.toFloat())
                 editor.putFloat("dolar",it.rates.uSD.toFloat())
-                editor.putFloat("manat",it.rates.aZN.toFloat())
+                editor.putFloat("manat",it.rates.eUR.toFloat())
                 editor.apply()
                 binding.recyclerView.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.GONE
@@ -306,16 +300,30 @@ class HomeFragment : Fragment() {
                             currencyDataList: ArrayList<Double>) {
         val x = sharedPreferences.getInt("number",0)
         if(x == 0){
-            // one time
-            viewModel.getData()
-            observeLiveData(sharedPreferences)
+
+            val cm = requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+            val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+
+            if (isConnected){
+                viewModel.getData()
+                observeLiveData(sharedPreferences)
+            } else {
+                Snackbar.make(binding.root,"İnternet Bağlantısı Yok", Snackbar.LENGTH_SHORT)
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                        .setTextColor(Color.YELLOW)
+                        .setBackgroundTint(Color.DKGRAY)
+                        .setAction("Tamam"){}
+                        .setActionTextColor(Color.RED)
+                        .show()
+            }
 
             val name = sharedPreferences.getString("name","İsim Giriniz")
             val lastClickedItem = sharedPreferences.getInt("lastClickedItem",1)
-            val dataTl = sharedPreferences.getFloat("tl", 23.3F)
-            val dataSterlin = sharedPreferences.getFloat("sterlin", 100.0F)
-            val dataDolar = sharedPreferences.getFloat("dolar", 1.4F)
-            val dataManat = sharedPreferences.getFloat("manat", 54.3F)
+            val dataTl = sharedPreferences.getFloat("tl", 1F)
+            val dataSterlin = sharedPreferences.getFloat("sterlin", 1F)
+            val dataDolar = sharedPreferences.getFloat("dolar", 1F)
+            val dataManat = sharedPreferences.getFloat("manat", 1F)
 
             currencyDataList.clear()
             currencyDataList.add(dataTl.toDouble())

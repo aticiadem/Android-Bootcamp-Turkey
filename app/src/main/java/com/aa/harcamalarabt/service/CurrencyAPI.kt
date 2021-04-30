@@ -12,7 +12,7 @@ interface CurrencyAPI {
     @GET("latest")
     fun getData(
         @Query("access_key") key: String = "ee06c56b8fe3ba6df11d71a9e587de5d",
-        @Query("symbols") symbols: String = "USD,TRY,GBP,AZN",
+        @Query("symbols") symbols: String = "USD,TRY,GBP,EUR",
         @Query("format") format: String = "1"
     ) : Single<CurrencyModel>
 

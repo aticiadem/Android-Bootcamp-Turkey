@@ -50,7 +50,7 @@ class AddExpenseF : Fragment() {
                 R.id.radioButtonTl -> 1 // Tl
                 R.id.radioButtonSterlin -> 2 // Sterlin
                 R.id.radioButtonDolar -> 3 // Dolar
-                else -> 4 // Manat
+                else -> 4 // Euro
             }
         }
 

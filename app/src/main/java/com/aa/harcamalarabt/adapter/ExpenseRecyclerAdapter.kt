@@ -11,7 +11,7 @@ import com.aa.harcamalarabt.model.ExpenseModel
 import com.aa.harcamalarabt.ui.fragment.HomeFragmentDirections
 import java.text.DecimalFormat
 
-class ExpenseRecyclerAdapter(val currencyType: Int, val list: ArrayList<Double>): RecyclerView.Adapter<ExpenseRecyclerAdapter.ExpenseViewHolder>() {
+class ExpenseRecyclerAdapter(private val currencyType: Int, private val list: ArrayList<Double>): RecyclerView.Adapter<ExpenseRecyclerAdapter.ExpenseViewHolder>() {
 
     private var expenseList = emptyList<ExpenseModel>()
 
@@ -33,11 +33,10 @@ class ExpenseRecyclerAdapter(val currencyType: Int, val list: ArrayList<Double>)
             3 -> holder.itemBinding.imageViewImage.setImageResource(R.drawable.shopping_bag)
         }
         when(currencyType){
-            1 -> {
-                when(currentItem.currencyType){ // veritabanindaki birimlerin tl donusumu
+            1 -> { // veritabanindaki birimlerin tl donusumu
+                when(currentItem.currencyType){ // Degerin para birimi
                     1 -> { // TL
                         holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(currentPrice)} TL"
-
                     }
                     2 -> { // Sterlin tl ceviri
                         // 1 sterlin kac euro? -> x
@@ -47,21 +46,20 @@ class ExpenseRecyclerAdapter(val currencyType: Int, val list: ArrayList<Double>)
                         val total = currentPrice * value
                         holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(total)} TL"
                     }
-                    3 -> { // Dolar
+                    3 -> { // Dolar in Tl donusumu
                         val x = 1/list[2]
                         val value = x*list[0]
                         val total = currentPrice * value
                         holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(total)} TL"
                     }
-                    4 -> { // Manat
-                        val x = 1/list[3]
-                        val value = x*list[0]
-                        val total = currentPrice * value
+                    4 -> { // Euro
+                        val tl_1_kac_euro = 1*list[0]
+                        val total = currentPrice * tl_1_kac_euro
                         holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(total)} TL"
                     }
                 }
             }
-            2 -> {
+            2 -> { // veritabanindaki birimlerin sterlin donusumu
                 when(currentItem.currencyType){
                     1 -> { // TL
                         val x = 1/list[0]
@@ -78,10 +76,14 @@ class ExpenseRecyclerAdapter(val currencyType: Int, val list: ArrayList<Double>)
                         val total = currentPrice * value
                         holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(total)} Sterlin"
                     }
-                    4 -> { // Manat
+                    4 -> { // Euro
+                        val sterlin1_kac_euro = 1*list[1]
+                        val total = currentPrice * sterlin1_kac_euro
+                        /*
                         val x = 1/list[3]
                         val value = x*list[1]
                         val total = currentPrice * value
+                       */
                         holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(total)} Sterlin"
                     }
                 }
@@ -104,9 +106,12 @@ class ExpenseRecyclerAdapter(val currencyType: Int, val list: ArrayList<Double>)
                         holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(currentPrice)} Dolar"
                     }
                     4 -> { // Manat
+                        val dolar1_kac_euro = 1*list[2]
+                        val total = currentPrice * dolar1_kac_euro
+                        /*
                         val x = 1/list[3]
                         val value = x * list[2]
-                        val total = currentPrice * value
+                        val total = currentPrice * value */
                         holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(total)} Dolar"
                     }
                 }

@@ -1,6 +1,5 @@
 package com.aa.harcamalarabt.model
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Rates(
@@ -10,6 +9,6 @@ data class Rates(
     val tRY: Double,
     @SerializedName("USD")
     val uSD: Double,
-    @SerializedName("AZN")
-    val aZN: Double
+    @SerializedName("EUR")
+    val eUR: Double
 )

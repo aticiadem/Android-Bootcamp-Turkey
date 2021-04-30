@@ -138,12 +138,12 @@
             android:textSize="15sp" />
 
         <RadioButton
-            android:id="@+id/radioButtonManat"
+            android:id="@+id/radioButtonEuro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:buttonTint="@drawable/radio_button_clicked"
-            android:text="@string/manat"
+            android:text="@string/euro"
             android:textSize="15sp" />
 
     </RadioGroup>
