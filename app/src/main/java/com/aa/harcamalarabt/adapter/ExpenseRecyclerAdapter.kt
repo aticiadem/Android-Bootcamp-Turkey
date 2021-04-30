@@ -122,22 +122,22 @@ class ExpenseRecyclerAdapter(private val currencyType: Int, private val list: Ar
                         val x = 1/list[0]
                         val value = x * list[3]
                         val total = currentPrice * value
-                        holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(total)} Manat"
+                        holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(total)} Euro"
                     }
                     2 -> { // Sterlin
                         val x = 1/list[1]
                         val value = x * list[3]
                         val total = currentPrice * value
-                        holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(total)} Manat"
+                        holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(total)} Euro"
                     }
                     3 -> { // Dolar
                         val x = 1/list[2]
                         val value = x * list[3]
                         val total = currentPrice * value
-                        holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(total)} Manat"
+                        holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(total)} Euro"
                     }
                     4 -> { // Manat
-                        holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(currentPrice)} Manat"
+                        holder.itemBinding.textViewPrice.text = "${DecimalFormat("##.#").format(currentPrice)} Euro"
                     }
                 }
             }

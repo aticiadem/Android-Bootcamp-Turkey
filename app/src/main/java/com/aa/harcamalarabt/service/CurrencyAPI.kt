@@ -11,7 +11,7 @@ interface CurrencyAPI {
 
     @GET("latest")
     fun getData(
-        @Query("access_key") key: String = "ee06c56b8fe3ba6df11d71a9e587de5d",
+        @Query("access_key") key: String = "d99d6d911a86a0d5814d7917def91d4d",
         @Query("symbols") symbols: String = "USD,TRY,GBP,EUR",
         @Query("format") format: String = "1"
     ) : Single<CurrencyModel>

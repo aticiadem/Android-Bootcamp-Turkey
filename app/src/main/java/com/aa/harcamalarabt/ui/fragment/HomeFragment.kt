@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
             changeCurrencyValue(3)
         }
 
-        binding.buttonManat.setOnClickListener {
+        binding.buttonEuro.setOnClickListener {
             changeColor(it as Button)
             //viewModel.getData()
             changeLastClicked(sharedPreferences,4)
@@ -112,28 +112,28 @@ class HomeFragment : Fragment() {
                 adapter.setData(db.expenseDao().readAllData())
                 binding.recyclerView.adapter = adapter
                 val totalPrice = calculator(1,currencyDataList,expenseList)
-                binding.textViewHarcama.text = "${DecimalFormat("#.#").format(totalPrice)} ₺"
+                binding.textViewYourExpense.text = "${DecimalFormat("#.#").format(totalPrice)} ₺"
             }
             2 -> {
                 val adapter = ExpenseRecyclerAdapter(2,currencyDataList)
                 adapter.setData(db.expenseDao().readAllData())
                 binding.recyclerView.adapter = adapter
                 val totalPrice = calculator(2,currencyDataList,expenseList)
-                binding.textViewHarcama.text = "${DecimalFormat("#.#").format(totalPrice)} £"
+                binding.textViewYourExpense.text = "${DecimalFormat("#.#").format(totalPrice)} £"
             }
             3 -> {
                 val adapter = ExpenseRecyclerAdapter(3,currencyDataList)
                 adapter.setData(db.expenseDao().readAllData())
                 binding.recyclerView.adapter = adapter
                 val totalPrice = calculator(3,currencyDataList,expenseList)
-                binding.textViewHarcama.text = "${DecimalFormat("#.#").format(totalPrice)} $"
+                binding.textViewYourExpense.text = "${DecimalFormat("#.#").format(totalPrice)} $"
             }
             4 -> {
                 val adapter = ExpenseRecyclerAdapter(4,currencyDataList)
                 adapter.setData(db.expenseDao().readAllData())
                 binding.recyclerView.adapter = adapter
                 val totalPrice = calculator(4,currencyDataList,expenseList)
-                binding.textViewHarcama.text = "${DecimalFormat("#.#").format(totalPrice)} Manat"
+                binding.textViewYourExpense.text = "${DecimalFormat("#.#").format(totalPrice)} €"
             }
         }
     }
@@ -185,7 +185,7 @@ class HomeFragment : Fragment() {
                             val total = i.priceValue * value
                             priceValue += total
                         }
-                        4 -> { // Manat
+                        4 -> { // Euro
                             val tl_1_kac_euro = 1*list[1]
                             val y = i.priceValue * tl_1_kac_euro
                             priceValue += y
@@ -209,7 +209,7 @@ class HomeFragment : Fragment() {
                         3 -> { // Dolar
                             priceValue += i.priceValue
                         }
-                        4 -> { // Manat
+                        4 -> { // Euro
                             val tl_1_kac_euro = 1*list[2]
                             val y = i.priceValue * tl_1_kac_euro
                             priceValue += y
@@ -236,7 +236,7 @@ class HomeFragment : Fragment() {
                             val total = i.priceValue * value
                             priceValue += total
                         }
-                        4 -> { // Manat
+                        4 -> { // Euro
                             priceValue += i.priceValue
                         }
                     }
@@ -250,7 +250,7 @@ class HomeFragment : Fragment() {
         binding.buttonTl.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
         binding.buttonDolar.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
         binding.buttonSterlin.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
-        binding.buttonManat.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
+        binding.buttonEuro.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
         button.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
     }
 
@@ -261,11 +261,10 @@ class HomeFragment : Fragment() {
                 editor.putFloat("tl",it.rates.tRY.toFloat())
                 editor.putFloat("sterlin",it.rates.gBP.toFloat())
                 editor.putFloat("dolar",it.rates.uSD.toFloat())
-                editor.putFloat("manat",it.rates.eUR.toFloat())
+                editor.putFloat("euro",it.rates.eUR.toFloat())
                 editor.apply()
                 binding.recyclerView.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.GONE
-                println("HomeFragment Veriler Alindi")
             }
         })
         viewModel.loadingMessage.observe(viewLifecycleOwner, { loading ->
@@ -281,15 +280,16 @@ class HomeFragment : Fragment() {
         viewModel.errorMessage.observe(viewLifecycleOwner, { error ->
             error?.let {
                 if (it){
-                    // Error true
-                    //Toast.makeText(requireContext(),"Error",Toast.LENGTH_SHORT).show()
                     binding.progressBar.visibility = View.GONE
                     binding.recyclerView.visibility = View.VISIBLE
-                    println("HomeFragmentError")
+                    Snackbar.make(binding.root,"Güncel Veriler Çekilemedi.", Snackbar.LENGTH_SHORT)
+                            .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                            .setTextColor(Color.WHITE)
+                            .setBackgroundTint(Color.DKGRAY)
+                            .setAction("Tamam"){}
+                            .setActionTextColor(Color.RED)
+                            .show()
                 }
-                /*else{
-                    // Error false
-                }*/
             }
         })
     }
@@ -323,13 +323,13 @@ class HomeFragment : Fragment() {
             val dataTl = sharedPreferences.getFloat("tl", 1F)
             val dataSterlin = sharedPreferences.getFloat("sterlin", 1F)
             val dataDolar = sharedPreferences.getFloat("dolar", 1F)
-            val dataManat = sharedPreferences.getFloat("manat", 1F)
+            val dataEuro = sharedPreferences.getFloat("euro", 1F)
 
             currencyDataList.clear()
             currencyDataList.add(dataTl.toDouble())
             currencyDataList.add(dataSterlin.toDouble())
             currencyDataList.add(dataDolar.toDouble())
-            currencyDataList.add(dataManat.toDouble())
+            currencyDataList.add(dataEuro.toDouble())
 
             when(sharedPreferences.getInt("gender",3)){
                 1 -> binding.textViewUserName.text = "$name Bey"
@@ -341,7 +341,7 @@ class HomeFragment : Fragment() {
                 1 -> binding.buttonTl.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
                 2 -> binding.buttonSterlin.setTextColor(ContextCompat.getColor(requireActivity(),R.color.orange))
                 3 -> binding.buttonDolar.setTextColor(ContextCompat.getColor(requireActivity(),R.color.orange))
-                else -> binding.buttonManat.setTextColor(ContextCompat.getColor(requireActivity(),R.color.orange))
+                else -> binding.buttonEuro.setTextColor(ContextCompat.getColor(requireActivity(),R.color.orange))
             }
 
             adapter = ExpenseRecyclerAdapter(lastClickedItem,currencyDataList)
@@ -361,16 +361,16 @@ class HomeFragment : Fragment() {
 
             val name = sharedPreferences.getString("name","İsim Giriniz")
             val lastClickedItem = sharedPreferences.getInt("lastClickedItem",1)
-            val dataTl = sharedPreferences.getFloat("tl", 23.3F)
-            val dataSterlin = sharedPreferences.getFloat("sterlin", 100.0F)
-            val dataDolar = sharedPreferences.getFloat("dolar", 1.4F)
-            val dataManat = sharedPreferences.getFloat("manat", 54.3F)
+            val dataTl = sharedPreferences.getFloat("tl", 1F)
+            val dataSterlin = sharedPreferences.getFloat("sterlin", 1F)
+            val dataDolar = sharedPreferences.getFloat("dolar", 1F)
+            val dataEuro = sharedPreferences.getFloat("euro", 1F)
 
             currencyDataList.clear()
             currencyDataList.add(dataTl.toDouble())
             currencyDataList.add(dataSterlin.toDouble())
             currencyDataList.add(dataDolar.toDouble())
-            currencyDataList.add(dataManat.toDouble())
+            currencyDataList.add(dataEuro.toDouble())
 
             adapter = ExpenseRecyclerAdapter(1,currencyDataList)
             adapter.setData(expenseList)
@@ -391,7 +391,7 @@ class HomeFragment : Fragment() {
                 1 -> binding.buttonTl.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
                 2 -> binding.buttonSterlin.setTextColor(ContextCompat.getColor(requireActivity(),R.color.orange))
                 3 -> binding.buttonDolar.setTextColor(ContextCompat.getColor(requireActivity(),R.color.orange))
-                else -> binding.buttonManat.setTextColor(ContextCompat.getColor(requireActivity(),R.color.orange))
+                else -> binding.buttonEuro.setTextColor(ContextCompat.getColor(requireActivity(),R.color.orange))
             }
         }
     }

@@ -55,38 +55,38 @@ class ExpenseDetailF : Fragment() {
         val dataTl = sharedPreferences.getFloat("tl", 1F)
         val dataSterlin = sharedPreferences.getFloat("sterlin", 1F)
         val dataDolar = sharedPreferences.getFloat("dolar", 1F)
-        val dataManat = sharedPreferences.getFloat("manat", 1F)
+        val dataEuro = sharedPreferences.getFloat("euro", 1F)
 
         val list = ArrayList<Double>()
         list.clear()
         list.add(dataTl.toDouble())
         list.add(dataSterlin.toDouble())
         list.add(dataDolar.toDouble())
-        list.add(dataManat.toDouble())
+        list.add(dataEuro.toDouble())
 
         when(lastClickedItem){
             1 -> { // TL basilmis
                 when(currentModel.currencyType){
                     1 -> { // Degerin Tl Donusumu
-                        binding.textViewPrice.text = "${currentModel.priceValue} TL"
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(currentModel.priceValue)} Türk Lirası"
                     }
                     2 -> { // Sterlin tl ceviri
                         val x = 1/list[1]
                         // x euro kac tl ?
                         val value = x*list[0]
                         val total = currentModel.priceValue * value
-                        binding.textViewPrice.text = "$total TL"
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(total)} Türk Lirası"
                     }
                     3 -> { // Dolar in Tl donusumu
                         val x = 1/list[2]
                         val value = x*list[0]
                         val total = currentModel.priceValue * value
-                        binding.textViewPrice.text = "$total TL"
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(total)} Türk Lirası"
                     }
                     4 -> { // Euro
                         val tl_1_kac_euro = 1*list[0]
                         val total = currentModel.priceValue * tl_1_kac_euro
-                        binding.textViewPrice.text = "$total TL"
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(total)} Türk Lirası"
                     }
                 }
             }
@@ -96,21 +96,21 @@ class ExpenseDetailF : Fragment() {
                         val x = 1/list[0]
                         val value = x * list[1]
                         val total = currentModel.priceValue * value
-                        binding.textViewPrice.text = "$total Sterlin"
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(total)} Sterlin"
                     }
                     2 -> { // Sterlin
-                        binding.textViewPrice.text = "${currentModel.priceValue} Sterlin"
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(currentModel.priceValue)} Sterlin"
                     }
                     3 -> { // Dolar
                         val x = 1/list[2]
                         val value = x * list[1]
                         val total = currentModel.priceValue * value
-                        binding.textViewPrice.text = "$total Sterlin"
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(total)} Sterlin"
                     }
                     4 -> { // Euro
                         val sterlin1_kac_euro = 1*list[1]
                         val total = currentModel.priceValue * sterlin1_kac_euro
-                        binding.textViewPrice.text = "$total Sterlin"
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(total)} Sterlin"
                     }
                 }
             }
@@ -120,21 +120,21 @@ class ExpenseDetailF : Fragment() {
                         val x = 1/list[0]
                         val value = x * list[2]
                         val total = currentModel.priceValue * value
-                        binding.textViewPrice.text = "$total Dolar"
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(total)} Dolar"
                     }
                     2 -> { // Sterlin
                         val x = 1/list[1]
                         val value = x * list[2]
                         val total = currentModel.priceValue * value
-                        binding.textViewPrice.text = "$total Dolar"
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(total)} Dolar"
                     }
                     3 -> { // Dolar
-                        binding.textViewPrice.text = "${currentModel.priceValue} Dolar"
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(currentModel.priceValue)} Dolar"
                     }
                     4 -> { // Manat
                         val dolar1_kac_euro = 1*list[2]
                         val total = currentModel.priceValue * dolar1_kac_euro
-                        binding.textViewPrice.text = "$total Dolar"
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(total)} Dolar"
                     }
                 }
             }
@@ -144,22 +144,22 @@ class ExpenseDetailF : Fragment() {
                         val x = 1/list[0]
                         val value = x * list[3]
                         val total = currentModel.priceValue * value
-                        binding.textViewPrice.text = "$total Euro"
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(total)} Euro"
                     }
                     2 -> { // Sterlin
                         val x = 1/list[1]
                         val value = x * list[3]
                         val total = currentModel.priceValue * value
-                        binding.textViewPrice.text = "$total Euro"
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(total)} Euro"
                     }
                     3 -> { // Dolar
                         val x = 1/list[2]
                         val value = x * list[3]
                         val total = currentModel.priceValue * value
-                        binding.textViewPrice.text = "$total Euro"
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(total)} Euro"
                     }
-                    4 -> { // Manat
-                        binding.textViewPrice.text = "${currentModel.priceValue} Euro"
+                    4 -> { // Euro
+                        binding.textViewPrice.text = "${DecimalFormat(".#").format(currentModel.priceValue)} Euro"
                     }
                 }
             }

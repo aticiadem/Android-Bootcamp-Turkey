@@ -41,7 +41,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/textViewHarcama"
+                    android:id="@+id/textViewYourExpense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -136,18 +136,18 @@
             android:textColor="@color/dark_gray"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonManat"
+            app:layout_constraintEnd_toStartOf="@+id/buttonEuro"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/buttonSterlin"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/buttonManat"
+            android:id="@+id/buttonEuro"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="82dp"
             android:layout_height="40dp"
             android:background="@drawable/home_button_background"
-            android:text="@string/manat"
+            android:text="@string/euro"
             android:textAllCaps="true"
             android:textColor="@color/dark_gray"
             android:textSize="16sp"
