@@ -32,12 +32,10 @@ class HomeViewModel: ViewModel() {
                     data.value = t
                     errorMessage.value = false
                     loadingMessage.value = false
-                    println("Tamamlandi")
                 }
                 override fun onError(e: Throwable) {
                     errorMessage.value = true
                     loadingMessage.value = false
-                    println(e.localizedMessage)
                 }
             }))
     }
